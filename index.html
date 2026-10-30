@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>گزارش بازدید صنعتی - واحد مالی</title>
+    <!-- استفاده از فونت زیبای وزیرمتن -->
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #3b82f6;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #cbd5e1;
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Vazirmatn', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            padding: 40px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 20px;
+        }
+
+        header h1 {
+            color: var(--primary);
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin: 30px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px dashed #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                padding: 20px;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            background: #fff;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .name-selector {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 25px;
+            border-radius: var(--radius);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .name-selector h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .name-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .name-btn {
+            background: #fff;
+            border: 2px solid var(--primary-light);
+            color: var(--primary);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .name-btn:hover, .name-btn.active {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .actions {
+            margin-top: 40px;
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+
+        .btn-success {
+            background: #059669;
+            color: #fff;
+        }
+
+        .btn-success:hover {
+            background: #047857;
+        }
+
+        /* استایل مخصوص چاپ و خروجی PDF */
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .name-selector, .actions, .no-print {
+                display: none !important;
+            }
+            input, select, textarea {
+                border: none;
+                border-bottom: 1px solid #94a3b8;
+                border-radius: 0;
+                padding: 5px 0;
+                background: transparent;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>گزارش تخصصی بازدید صنعتی</h1>
+        <p>ارزیابی و تحلیل عملکرد واحد مالی کارخانه</p>
+    </header>
+
+    <!-- انتخاب نام گزارش‌دهنده -->
+    <div class="name-selector">
+        <h3>لطفاً نام گزارش‌دهنده را انتخاب کنید:</h3>
+        <div class="name-buttons">
+            <button type="button" class="name-btn" onclick="selectName('سجاد')">سجاد</button>
+            <button type="button" class="name-btn" onclick="selectName('پویان')">پویان</button>
+            <button type="button" class="name-btn" onclick="selectName('محمدصالح')">محمدصالح</button>
+            <button type="button" class="name-btn" onclick="selectName('سبحان')">سبحان</button>
+        </div>
+        <input type="hidden" id="reporterName" value="">
+    </div>
+
+    <form id="visitForm">
+        <!-- اطلاعات عمومی بازدید -->
+        <div class="section-title">۱. مشخصات کلی بازدید</div>
+        <div class="grid-3">
+            <div class="form-group">
+                <label>تاریخ بازدید</label>
+                <input type="date" id="visitDate" required>
+            </div>
+            <div class="form-group">
+                <label>نام کارخانه</label>
+                <input type="text" id="factoryName" placeholder="مثلا: فولاد آریا" required>
+            </div>
+            <div class="form-group">
+                <label>موقعیت مکانی</label>
+                <input type="text" id="location" placeholder="شهرک صنعتی...">
+            </div>
+        </div>
+
+        <div class="grid-3">
+            <div class="form-group">
+                <label>بخش بازدیدشده</label>
+                <input type="text" id="section" value="امور مالی و حسابداری" readonly>
+            </div>
+            <div class="form-group">
+                <label>نام مصاحبه‌شونده</label>
+                <input type="text" id="intervieweeName" placeholder="مدیر مالی / حسابدار ارشد">
+            </div>
+            <div class="form-group">
+                <label>سمت مصاحبه‌شونده</label>
+                <input type="text" id="intervieweeRole" placeholder="مدیر مالی">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>هدف اصلی بازدید</label>
+            <textarea id="visitGoal" placeholder="هدف از ارزیابی ساختار مالی، بودجه‌بندی و بهای تمام‌شده..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>شرح کلی فرآیندهای مالی مشاهده شده</label>
+            <textarea id="generalDesc" placeholder="توضیحات کلی درباره نحوه ثبت اسناد، جریان نقدینگی و..."></textarea>
+        </div>
+
+        <!-- پرسش‌های تخصصی واحد مالی -->
+        <div class="section-title">۲. ارزیابی تخصصی فرآیندهای مالی</div>
+
+        <div class="form-group">
+            <label>۱. فعالیت‌های کلیدی واحد مالی و حسابداری چیست؟</label>
+            <textarea id="q1"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>۲. ساختار سازمانی دپارتمان مالی به چه صورت است؟</label>
+            <textarea id="q2"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>۳. نحوه مشارکت واحد مالی در فرآیندهای تصمیم‌گیری مدیریت ارشد چگونه است؟</label>
+            <textarea id="q3"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>۴. اصلی‌ترین گزارش‌های مالی ارسالی به مدیریت ارشد و هیئت مدیره چیست؟</label>
+            <textarea id="q4"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>۵. فرآیند تدوین، تصویب و کنترل بودجه و هزینه‌ها چگونه انجام می‌شود؟</label>
+            <textarea id="q5"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>۶. نحوه هماهنگی و تبادل اطلاعات مالی با سایر دپارتمان‌ها (تولید، فروش، بازرگانی) چطور است؟</label>
+            <textarea id="q6"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>۷. مهم‌ترین چالش‌های جاری دپارتمان مالی کدامند؟</label>
+            <textarea id="q7"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>۸. نحوه شناسایی و تخصیص هزینه‌های سربار تولید چگونه است؟</label>
+            <textarea id="q8"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>۹. نحوه مدیریت و ثبت درآمدهای غیرعملیاتی (با ذکر مثال‌های واقعی کارخانه) چیست؟</label>
+            <textarea id="q9"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>۱۰. نحوه محاسبه بهای تمام‌شده کالای فروش‌رفته (COGS) در شرایط تورم بالا چگونه است؟</label>
+            <textarea id="q10"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>۱۱. متد و ابزارهای محاسبه معادل ریالی مواد اولیه ارزی/وارداتی چیست؟</label>
+            <textarea id="q11"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>ملاحظات و مشاهدات میدانی آزاد</label>
+            <textarea id="observations" placeholder="نکات کلیدی، زبان بدن، وضعیت نرم‌افزار مالی (راهکاران، همکاران سیستم و...)"></textarea>
+        </div>
+
+        <div class="actions">
+            <button type="button" class="btn btn-success" onclick="generatePDF()">📥 دانلود خروجی PDF گزارش</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function selectName(name) {
+        document.getElementById('reporterName').value = name;
+        const buttons = document.querySelectorAll('.name-btn');
+        buttons.forEach(btn => {
+            if(btn.innerText === name) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    function generatePDF() {
+        const reporter = document.getElementById('reporterName').value;
+        if(!reporter) {
+            alert('لطفاً ابتدا نام خودتان (گزارش‌دهنده) را از دکمه‌های بالا انتخاب کنید.');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            return;
+        }
+        // باز کردن پنجره چاپ مرورگر که خروجی PDF تمیز و حرفه‌ای می‌دهد
+        window.print();
+    }
+</script>
+
+</body>
+</html>
